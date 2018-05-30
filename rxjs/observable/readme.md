@@ -41,7 +41,7 @@ const myObserver = {
 
 ## Observable 구독하기
 반복적으로 드리는 말씀이지만 Observable 인스턴스는 누군가 구독할 때만 알림을 수신하기 시작합니다.
-<code>subscribe()</code> 메서들 실행하고 Observer 객체를 전달하여 구독해야 합니다.
+<code>subscribe()</code> 메서드를 실행하고 Observer 객체를 전달하여 구독해야 합니다.
 
 구독은 아래와 같이 Observable 인스턴스의 <code>subscribe()</code> 메서드를 호출하면 됩니다.
 매개변수로는 Observer 객체를 넘겨주거나 생성해야 합니다.
@@ -140,7 +140,7 @@ btn.click(); // 실제 버튼을 클릭합니다.
 생성자 함수 외에도 Observable을 만들 수 있는 다양한 함수들이 존재합니다. 그 중 제가 마음에 드는 몇가지만 소개하도록 하겠습니다.
 전부 다 살펴 보기에는 사실 추가, 삭제, 변경되는 함수들이 많아서 생산성이 떨어질 것 같습니다. 관심 있으신 분들은 개인적으로 찾아보도록 합시다.
 
-#### create
+### create
 ```javascript
 Observable.create(subscriber: Function): Observable
 ```
@@ -166,7 +166,7 @@ myObservable.subscribe({
 ```
 네 뭐라 드릴 말씀이 없습니다. 다음 함수로 넘어가겠습니다.
 
-#### from
+### from
 ```javascript
 from(input: ObservableInput, scheduler?: Scheduler]): Observable
 ```
@@ -221,7 +221,7 @@ observable3.subscribe({
 })
 ```
 
-#### interval
+### interval
 ```javascript
 interval(period: number, scheduler?): Observable<number>
 ```
@@ -280,4 +280,5 @@ txt.subscribe({
 자신이 사용하는 RxJS 버전에 맞춰서 API를 찾아보면서 Observable을 학습해야 할 것 같습니다.
 
 [ReactiveX 사이트](http://reactivex.to)
+
 [RxJs 사이트](http://reactivex.to/rxjs)
