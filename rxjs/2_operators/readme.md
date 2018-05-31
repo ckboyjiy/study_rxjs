@@ -14,7 +14,7 @@ RxJS에서는 도트 체이닝 대신 새로운 <code>Pipeable Operators</code>�
 새로운 <code>Pipeable Operators</code>를 사용하면 필요한 연산자를 각 파일로 가져와서 사용하면 됩니다.
 2. 연산자들이 덕지덕지 붙은 Observable은 Webpack 또는 롤업과 같은 툴을 통해 "tree-shakeable"하지 않습니다.(변환이 잘 안된다는 뜻 같습니다.)
 하지만 <code>Pipeable Operators</code>를 사용하면 단지 모듈에서 가져온 함수일 뿐입니다.
-3. 사용하던 연산자가 사용하지 않게 되면서 제거되지 않고 방치된 연산자를 빌드 도구 또는 lint규칙 그리고 IDE에서 검색할 수 없습니다.
+3. 사용되던 연산자가 사용하지 않게 되면서 제거되지 않고 방치된 연산자를 빌드 도구 또는 lint규칙 그리고 IDE에서 검색할 수 없습니다.
 하지만 <code>Pipeable Operators</code>를 사용하면 이 것들을 검색할 수 있습니다.
 4. <code>Pipeable Operators</code>를 이용하여 다양한 연산자를 묶어 사용자 연산자를 생산하기 쉽습니다.
 
