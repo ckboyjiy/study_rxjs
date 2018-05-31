@@ -14,7 +14,7 @@ RxJS에서는 도트 체이닝 대신 새로운 <code>Pipeable Operators</code>�
 새로운 <code>Pipeable Operators</code>를 사용하면 필요한 연산자를 각 파일로 가져와서 사용하면 됩니다.
 2. 연산자들이 덕지덕지 붙은 Observable은 Webpack 또는 롤업과 같은 툴을 통해 "tree-shakeable"하지 않습니다.(변환이 잘 안된다는 뜻 같습니다.)
 하지만 <code>Pipeable Operators</code>를 사용하면 단지 모듈에서 가져온 함수일 뿐입니다.
-3. 사용되던 연산자가 사용하지 않게 되면서 제거되지 않고 방치된 연산자를 빌드 도구 또는 lint규칙 그리고 IDE에서 검색할 수 없습니다.
+3. 사용하던 연산자를 사용하지 않게 되면서 제거되지 않고 방치된 연산자를 빌드 도구 또는 lint규칙 그리고 IDE에서 검색할 수 없습니다.
 하지만 <code>Pipeable Operators</code>를 사용하면 이 것들을 검색할 수 있습니다.
 4. <code>Pipeable Operators</code>를 이용하여 다양한 연산자를 묶어 사용자 연산자를 생산하기 쉽습니다.
 
@@ -169,7 +169,7 @@ of('1', '2').pipe(
 
 ### of
 매개변수로 전달된 다양한 값을 순차적으로 방출합니다.
-결과적으로는 from 연산자와 유사합니다만 자바스크립트의 call 과 apply를 생각하면 좋을 것 같습니다.
+결과적으로는 <code>from</code> 연산자와 유사합니다만 자바스크립트의 call 과 apply를 생각하면 좋을 것 같습니다.
 ```javascript
 of(...values, scheduler: Scheduler): Observable
 ```
@@ -194,12 +194,12 @@ of({ name: 'Brian' }, [1, 2, 3], function hello() { // 객체, 배열, 함수 �
 ```javascript
 timer(initialDelay: number | Date, period?: number, scheduler?: Scheduler): Observable
 ```
-###### 매개변수
+##### 매개변수
 * initialDelay : 방출을 지연할 시간을 지정합니다. 단위는 밀리세컨드입니다.
 * period : 선택사항, 방출이 시작된 후 period 값 마다 반복해서 일련번호를 방출합니다.
 * scheduler : 선택사항, Scheduler 문서에서 다시 확인하도록 하겠습니다.
 
-###### 예제 7 (example_7.js)
+##### 예제 7 (example_7.js)
 ```javascript
 import { timer } from 'rxjs';
 
