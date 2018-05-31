@@ -21,6 +21,13 @@ Observable 객체를 실행하여 알림을 수신하려면 <code>subscribe()</c
 Observer란 쉽게 말해 Observable이 발행한 알림을 수신하는 객체입니다.
 <sode>subscribe()</code>메서드는 리턴값으로 알림 수신을 중지하기 위한 Subscription 객체를 받습니다.
 
+## 뜨겁고(Hot) 차가운(Cold) Observable
+뜨거운(hot) Observable은 Observable이 생성는 즉시 항목을 방출합니다. 생성 후 구독을 수행하는 Observer는 중간부터 구독을 시작합니다.
+
+차가운(Cold) Observable은 Observer가 구독을 수행하기 전까지 기다린 후에 방출합니다.
+
+Observable은 위 두가지를 선택할 수 있습니다. 추후 이와 관련해서 블로그할 기회가 있을 것 같습니다.
+
 ## Observer 정의하기
 Observer는 Observable로부터 발생된 알림을 수신하는 핸들러 인터페이스 입니다. 즉, Observable이 알림을 생산하는 생산자라면 Observer는 그 알림을 소비하는 소비자입니다.
 Observable이 전달할 수 있는 3가지 유형의 알림을 처리하는 콜백 메서드를 정의할 수 있습니다.
@@ -136,15 +143,17 @@ btn.click(); // 실제 버튼을 클릭합니다.
 ```
 와우! 멋집니다. 다소 이해가 안되는 코드가 있더라도 일단 안심하시고 계속 진행해 보겠습니다.
 
-### Observable을 생성하는 다양한 함수들
-생성자 함수 외에도 Observable을 만들 수 있는 다양한 함수들이 존재합니다. 그 중 제가 마음에 드는 몇가지만 소개하도록 하겠습니다.
+### Observable을 생성하는 다양한 연산자(Operators)
+생성자 함수 외에도 Observable을 만들 수 있는 다양한 연산자가 존재합니다. 그 중 몇 가지만 소개하도록 하겠습니다.
 전부 다 살펴 보기에는 사실 추가, 삭제, 변경되는 함수들이 많아서 생산성이 떨어질 것 같습니다. 관심 있으신 분들은 개인적으로 찾아보도록 합시다.
 
 ### create
 ```javascript
 Observable.create(subscriber: Function): Observable
 ```
-어디서 많이 봤던 구조입니다. 그렇습니다. new 연산자를 통해서 만든 것과 거의 똑같습니다.
+어디서 많이 봤던 구조입니다. 그렇습니다. new 연산자를 통해서 만든 것과 똑같습니다.
+RxJS에서는 Observable의 정적 메소드로 정의되어 있습니다.
+create 메서드는 내부적으로 Observable의 생성자 함수를 사용하여 새로운 Observable을 생성합니다.
 
 예제 1번을 기본으로 create 함수를 써서 바꿔 보겠습니다.
 ##### 예제 3 (example_3.js)
@@ -164,7 +173,6 @@ myObservable.subscribe({
     complete() { console.log('complete');}
 });
 ```
-네 뭐라 드릴 말씀이 없습니다. 다음 함수로 넘어가겠습니다.
 
 ### from
 ```javascript
@@ -280,7 +288,6 @@ txt.subscribe({
 자신이 사용하는 RxJS 버전에 맞춰서 API를 찾아보면서 Observable을 학습해야 할 것 같습니다.
 
 ### [Operators 챕터로 이동](../operators)
-
 
 ### 유용한 사이트
 [ReactiveX 사이트](http://reactivex.to)
