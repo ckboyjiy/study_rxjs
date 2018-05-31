@@ -30,12 +30,6 @@ npm을 이용하여 모듈을 다운로드 합니다.
 RxJS 패키지를 설치 후 여러 사이트 및 책을 보고 사용하다 보면 임포트 과정에서 에러가 나오는 경우가 많다.
 RxJS는 버전마다 모듈명(또는 네임스페이스)가 다른 경우가 있으니 자신이 설치한 버전에 맞게 정확히 사용하도록 하자.
 
-RxJS의 핵심 기능 전체를 사용하시려면 아래와 같습니다.
-```javascript
-import Rx from 'rxjs';
-```
-
-번들링 사이즈에 민감하거나 필요한 것만 사용하고 싶다면 아래 코드를 참고하여 사용합니다.
 ```javascript
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
