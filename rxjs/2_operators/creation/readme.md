@@ -9,8 +9,8 @@ ReactiveX의 명세상에는 Creation Operator로 되어 있는데, RxJS에서�
 [Observable의 create 내용 확인하기](../1_observable#create)
 
 ### defer
-defer 연산자는 옵저버블(<code>Observable</code>)의 생성 조차 관찰자(Observer)가 구독을 시작하면 생성합니다.
-또한 관찰자가(Observer)가 구독할 때마다 매번 새로운 옵저버블(<code>Observable</code>)이 생성됩니다.
+defer 연산자는 옵저버블(<code>Observable</code>)의 생성 조차 옵저버(<code>Observer</code>)가 구독을 시작하면 생성합니다.
+또한 옵저버(<code>Observer</code>)가 구독할 때마다 매번 새로운 옵저버블(<code>Observable</code>)이 생성됩니다.
 
 ```javascript
 defer(observableFactory: function(): SubscribableOrPromise): Observable

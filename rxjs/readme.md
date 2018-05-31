@@ -6,7 +6,7 @@ Rx의 자바스크립트 버전의 라이브러리입니다.
 
 RxJS는 관찰 가능한 시퀀스를 사용하여 비동기 및 이벤트 기반 프로그램을 작성하기 위한 라이브러리입니다.
 
-옵저버블(<code>Observable</code>)과 Observer, Subject들, Scheduler들 그리고 다양한 연산자(Operator)를 사용하여 비동기 이벤트를 처리할 수 있습니다.
+옵저버블(<code>Observable</code>)과 옵저버(<code>Observer</code>), 서브젝트(<code>Subject</code>)들, Scheduler들 그리고 다양한 연산자(Operator)를 사용하여 비동기 이벤트를 처리할 수 있습니다.
 
 RxJS는 옵저버 패턴과 이터레이터 패턴을 결합하고 컬렉션을 사용한 함수형 프로그래밍을 통해 이벤트 시퀀스를 관리하는 이상적인 방법입니다.
 

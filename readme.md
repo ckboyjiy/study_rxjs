@@ -26,12 +26,12 @@ Rx의 핵심은 데이터나 이벤트 스트림을 나타내는 옵저버블(<c
 
 ### 밀어내기와 끌어오기
 리액티브의 핵심은 밀어내기의 지원 여부입니다.
-옵저버블(<code>Observable</code>)과 이와 관련한 Observer 타입 시그니처는 이벤트 밀어내기를 지원합니다.
+옵저버블(<code>Observable</code>)과 이와 관련한 옵저버(<code>Observer</code>) 타입 시그니처는 이벤트 밀어내기를 지원합니다.
 
 밀어내기를 통한 이벤트 수신을 지원하기 위해서는 Observable/Observer 쌍을 구독(subscribe)으로 연결합니다.
-Obervable은 데이터 스트림을 나타내며, Observer로부터 구독할 수 있습니다.
+Obervable은 데이터 스트림을 나타내며, 옵저버(<code>Observer</code>)로부터 구독할 수 있습니다.
 
-Observer는 3가지 유형의 이벤트를 받습니다.
+옵저버(<code>Observer</code>)는 3가지 유형의 이벤트를 받습니다.
 * onNext : 데이터
 * onError : 오류
 * onCompleted : 완료
@@ -77,7 +77,7 @@ Obserable의 규약에 의하면 (onNext, onComplated, onError) 이벤트는 동
 이것은 두가지를 의미합니다.
 
 ###### 생성이 아니라 구독이 작업을 시작합니다.
-옵저버블(<code>Observable</code>) 생성 과정에서 작성되는 Observer 코드는 나중에 구독이 될 경우 해야할 작업을 미리 정의해 둔다고 보시면 됩니다.
+옵저버블(<code>Observable</code>) 생성 과정에서 작성되는 옵저버(<code>Observer</code>) 코드는 나중에 구독이 될 경우 해야할 작업을 미리 정의해 둔다고 보시면 됩니다.
 
 ###### 옵저버블(<code>Observable</code>)은 재사용할 수 있습니다.
 옵저버블(<code>Observable</code>)은 느긋하기 때문에 특정 인스턴스를 여러 번 호출할 수 있습니다.
@@ -85,7 +85,7 @@ Obserable의 규약에 의하면 (onNext, onComplated, onError) 이벤트는 동
 ### 쌍대성(duality)
 옵저버블(<code>Observable</code>)은 iterable(반복기)의 비동기 쌍대(duality)입니다.
 즉, 옵저버블(<code>Observable</code>)은 끌어오기(pull) 대신 데이터 흐름을 뒤집어 밀어내는(push) 특성만 제외하면 iterable의 모든 기능을 제공하고 있습니다.
-이말은 iterable로 동기화 끌어오기 구현이 가능하다면 옵저버블(<code>Observable</code>)과 Observer를 이용해 비동기적인 밀어내기 방식으로 구현할 수 있다는 뜻 입니다.
+이말은 iterable로 동기화 끌어오기 구현이 가능하다면 옵저버블(<code>Observable</code>)과 옵저버(<code>Observer</code>)를 이용해 비동기적인 밀어내기 방식으로 구현할 수 있다는 뜻 입니다.
 
 ### 캬디널리티(Cardinality)
 카디널리티는 수학에서 집합의 크기, 특히 무한 개의 원소를 갖는 집합의 크기를 논하기 위해 도입된 개념입니다.

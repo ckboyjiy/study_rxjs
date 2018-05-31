@@ -39,7 +39,7 @@ RxJS에서는 도트 체이닝 대신 새로운 <code>Pipeable Operators</code>�
 * 오류 처리 : 옵저버블(<code>Observable</code>)에서 던진 오류를 복구할 수 있도록 도와주는 연산자
 * 조건 연산 : 옵저버블(<code>Observable</code>) 또는 옵저버블(<code>Observable</code>)이 배출한 항목을 평가하는 연산자
 * 수학과 집계 : 옵저버블(<code>Observable</code>)이 배출한 항목 전체를 대상으로 평가하는 연산자
-* 역압(backpressure) : Observer가 소비하는 것보다 더 빠르게 항목들을 생산하는 옵저버블(<code>Observable</code>)을 복제하는 연산자
+* 역압(backpressure) : 옵저버(<code>Observer</code>)가 소비하는 것보다 더 빠르게 항목들을 생산하는 옵저버블(<code>Observable</code>)을 복제하는 연산자
 * 연결 가능한 연산자 : 특정 기능에 특화된 옵저버블(<code>Observable</code>)로 가공하는 연산자
 * 타 객체로 변환 : 옵저버블(<code>Observable</code>)을 다른 객체로 변환하는 연산자
 * 유틸리티(헬퍼) : 그 밖에 다양한 헬퍼 연산자

@@ -18,18 +18,18 @@
 구독자(subscriber) 함수는 게시할 값 또는 메시지를 얻거나 생성하는 방법을 정의합니다.
 
 옵저버블(<code>Observable</code>) 객체를 실행하여 알림을 수신하려면 <code>subscribe()</code>를 실행하여 Oberver를 받아야 합니다.
-Observer란 쉽게 말해 옵저버블(<code>Observable</code>)이 발행한 알림을 수신하는 객체입니다.
+옵저버(<code>Observer</code>)란 쉽게 말해 옵저버블(<code>Observable</code>)이 발행한 알림을 수신하는 객체입니다.
 <sode>subscribe()</code>메서드는 리턴값으로 알림 수신을 중지하기 위한 Subscription 객체를 받습니다.
 
 ## 뜨겁고(Hot) 차가운(Cold) Observable
-뜨거운(hot) 옵저버블(<code>Observable</code>)은 옵저버블(<code>Observable</code>)이 생성는 즉시 항목을 방출합니다. 생성 후 구독을 수행하는 Observer는 중간부터 구독을 시작합니다.
+뜨거운(hot) 옵저버블(<code>Observable</code>)은 옵저버블(<code>Observable</code>)이 생성는 즉시 항목을 방출합니다. 생성 후 구독을 수행하는 옵저버(<code>Observer</code>)는 중간부터 구독을 시작합니다.
 
-차가운(Cold) 옵저버블(<code>Observable</code>)은 Observer가 구독을 수행하기 전까지 기다린 후에 방출합니다.
+차가운(Cold) 옵저버블(<code>Observable</code>)은 옵저버(<code>Observer</code>)가 구독을 수행하기 전까지 기다린 후에 방출합니다.
 
 옵저버블(<code>Observable</code>)은 위 두가지를 선택할 수 있습니다. 추후 이와 관련해서 블로그할 기회가 있을 것 같습니다.
 
-## Observer 정의하기
-Observer는 옵저버블(<code>Observable</code>)로부터 발생된 알림을 수신하는 핸들러 인터페이스 입니다. 즉, 옵저버블(<code>Observable</code>)이 알림을 생산하는 생산자라면 Observer는 그 알림을 소비하는 소비자입니다.
+## 옵저버(<code>Observer</code>) 정의하기
+옵저버(<code>Observer</code>)는 옵저버블(<code>Observable</code>)로부터 발생된 알림을 수신하는 핸들러 인터페이스 입니다. 즉, 옵저버블(<code>Observable</code>)이 알림을 생산하는 생산자라면 옵저버(<code>Observer</code>)는 그 알림을 소비하는 소비자입니다.
 옵저버블(<code>Observable</code>)이 전달할 수 있는 3가지 유형의 알림을 처리하는 콜백 메서드를 정의할 수 있습니다.
 
 알림의 유형은 아래와 같습니다.
@@ -37,7 +37,7 @@ Observer는 옵저버블(<code>Observable</code>)로부터 발생된 알림을 �
 * **error** : 오류가 전달되었을 경우 처리하는 콜백입니다. 이 유형을 수신하면 옵저버블(<code>Observable</code>)은 중지됩니다.
 * **complete** : 모든 실행이 완료되었을 경우 처리하는 콜백입니다. 전달이 지연되서 늦게 수신된 값들은 완료된 후에도 수신되어 처리될 수 있습니다.
 
-Observer를 정의하는 예제는 아래와 같습니다.
+옵저버(<code>Observer</code>)를 정의하는 예제는 아래와 같습니다.
 ```javascript
 const myObserver = {
   next: x => console.log('Observer got a next value: ' + x), // function next(x) { console.log('Observer got a next value: ' + x); }
@@ -48,10 +48,10 @@ const myObserver = {
 
 ## 옵저버블(<code>Observable</code>) 구독하기
 반복적으로 드리는 말씀이지만 옵저버블(<code>Observable</code>) 인스턴스는 누군가 구독할 때만 알림을 수신하기 시작합니다.
-<code>subscribe()</code> 메서드를 호출할 때 Observer 객체를 전달하여 구독해야 합니다.
+<code>subscribe()</code> 메서드를 호출할 때 옵저버(<code>Observer</code>) 객체를 전달하여 구독해야 합니다.
 
 구독은 아래와 같이 옵저버블(<code>Observable</code>) 인스턴스의 <code>subscribe()</code> 메서드를 호출하면 됩니다.
-매개변수로는 Observer 객체를 넘겨주거나 생성해야 합니다.
+매개변수로는 옵저버(<code>Observer</code>) 객체를 넘겨주거나 생성해야 합니다.
 ```javascript
 myObservable.subscribe(myObserver);
 or
