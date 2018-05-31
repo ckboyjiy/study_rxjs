@@ -1,4 +1,4 @@
-# Observable
+# Observable - 옵저버블
 Observable은 애플리케이션의 게시자와 구독자간의 메시지 전달을 지원합니다.
 이벤트 처리, 비동기 프로그래밍 및 다중 값 처리을 처리함에 있어 다른 기술보다 더 좋은 이점을 제공합니다.
 
@@ -22,26 +22,26 @@ Observer란 쉽게 말해 Observable이 발행한 알림을 수신하는 객체�
 <sode>subscribe()</code>메서드는 리턴값으로 알림 수신을 중지하기 위한 Subscription 객체를 받습니다.
 
 ## Observer 정의하기
-Observer는 Observable로부터 발생된 알림을 수신하는 핸들러 인터페이스 입니다.
+Observer는 Observable로부터 발생된 알림을 수신하는 핸들러 인터페이스 입니다. 즉, Observable이 알림을 생산하는 생산자라면 Observer는 그 알림을 소비하는 소비자입니다.
 Observable이 전달할 수 있는 3가지 유형의 알림을 처리하는 콜백 메서드를 정의할 수 있습니다.
 
-유형은 아래와 같습니다.
-* **next** : 필수 구현 항목으로, 전달된 각 값을 조작하는 콜백입니다.
+알림의 유형은 아래와 같습니다.
+* **next** : 필수 구현 항목으로, 매개변수로 전달된 값을 조작하는 콜백입니다.
 * **error** : 오류가 전달되었을 경우 처리하는 콜백입니다. 이 유형을 수신하면 Observable은 중지됩니다.
 * **complete** : 모든 실행이 완료되었을 경우 처리하는 콜백입니다. 전달이 지연되서 늦게 수신된 값들은 완료된 후에도 수신되어 처리될 수 있습니다.
 
 Observer를 정의하는 예제는 아래와 같습니다.
 ```javascript
 const myObserver = {
-  next: x => console.log('Observer got a next value: ' + x),
-  error: err => console.error('Observer got an error: ' + err),
-  complete: () => console.log('Observer got a complete notification'),
+  next: x => console.log('Observer got a next value: ' + x), // function next(x) { console.log('Observer got a next value: ' + x); }
+  error: err => console.error('Observer got an error: ' + err), // function error(err) { console.error('Observer got an error: ' + err); }
+  complete: () => console.log('Observer got a complete notification'), // function complete() { console.log('Observer got a complete notification'); }
 };
 ```
 
 ## Observable 구독하기
 반복적으로 드리는 말씀이지만 Observable 인스턴스는 누군가 구독할 때만 알림을 수신하기 시작합니다.
-<code>subscribe()</code> 메서드를 실행하고 Observer 객체를 전달하여 구독해야 합니다.
+<code>subscribe()</code> 메서드를 호출할 때 Observer 객체를 전달하여 구독해야 합니다.
 
 구독은 아래와 같이 Observable 인스턴스의 <code>subscribe()</code> 메서드를 호출하면 됩니다.
 매개변수로는 Observer 객체를 넘겨주거나 생성해야 합니다.
@@ -275,9 +275,11 @@ txt.subscribe({
 });
 ```
 
-### 그 밖에 다양한 create 함수와 Operator들이 존재합니다.
+### 그 밖에 다양한 creation Operator들이 존재합니다.
 사실 RxJS는 짜증날 정도로 여러 함수들이 생기고 사라지거나, 문법이 바뀌며, 모듈 구조까지 개편되고 있습니다.
 자신이 사용하는 RxJS 버전에 맞춰서 API를 찾아보면서 Observable을 학습해야 할 것 같습니다.
+
+### [Operators 챕터로 이동](../operators)
 
 [ReactiveX 사이트](http://reactivex.to)
 
