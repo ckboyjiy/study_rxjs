@@ -12,10 +12,10 @@
 설정 및 해체 논리(teardown logic)는 모두 옵저버블(<code>Observable</code>)에 의해 처리되므로, 구독하여 값을 처리하거나, 구독완료 후 처리 그리고 구독을 해제하는 것만 신경쓰면 됩니다.
 
 ## 기본적인 설명
-우리는 구독자(subscriber)함수를 정의하는 옵저버블(<code>Observable</code>)인스턴스를 만들어야 합니다.
-위에도 언급했지만 옵저버블(<code>Observable</code>)에 정의한 구독자(subscriber) 함수는 객체를 생성했다고 하여 실행되지 않습니다. 소비자가 옵저버블(<code>Observable</code>)의 subscribe() 메서드를 호출할 때 실행되는 함수입니다.
+우리는 구독자(<code>subscriber</code>)함수를 정의하는 옵저버블(<code>Observable</code>)인스턴스를 만들어야 합니다.
+위에도 언급했지만 옵저버블(<code>Observable</code>)에 정의한 구독자(<code>subscriber</code>) 함수는 객체를 생성했다고 하여 실행되지 않습니다. 소비자가 옵저버블(<code>Observable</code>)의 subscribe() 메서드를 호출할 때 실행되는 함수입니다.
 
-구독자(subscriber) 함수는 게시할 값 또는 메시지를 얻거나 생성하는 방법을 정의합니다.
+구독자(<code>subscriber</code>) 함수는 게시할 값 또는 메시지를 얻거나 생성하는 방법을 정의합니다.
 
 옵저버블(<code>Observable</code>) 객체를 실행하여 알림을 수신하려면 <code>subscribe()</code>를 실행하여 Oberver를 받아야 합니다.
 옵저버(<code>Observer</code>)란 쉽게 말해 옵저버블(<code>Observable</code>)이 발행한 알림을 수신하는 객체입니다.
