@@ -1,40 +1,40 @@
 # Observable - 옵저버블
-Observable은 애플리케이션의 게시자와 구독자간의 메시지 전달을 지원합니다.
+옵저버블(<code>Observable</code>)은 애플리케이션의 게시자와 구독자간의 메시지 전달을 지원합니다.
 이벤트 처리, 비동기 프로그래밍 및 다중 값 처리을 처리함에 있어 다른 기술보다 더 좋은 이점을 제공합니다.
 
-#### Observable은 선언적입니다.
+#### 옵저버블(<code>Observable</code>)은 선언적입니다.
 값을 게시하기 위한 함수를 정의하지만 소비자가 이 값을 구독하기 전까지는 실행되지 않습니다.
 소비자가 구독을 시작하면 함수가 완료되거나 소비자가 구독을 취소할 때까지 알림을 보냅니다.
 
-#### Observable은 여러 유형의 값을 전달할 수 있습니다.
+#### 옵저버블(<code>Observable</code>)은 여러 유형의 값을 전달할 수 있습니다.
 컨텍스트에 따라 리터럴, 메시지 또는 이벤트의 여러 값을 전달할 수 있습니다.
 값을 수신하는 API는 동기적 또는 비동기적 전달 방식에 상관없이 동일하게 작동됩니다.
-설정 및 해체 논리(teardown logic)는 모두 Observable에 의해 처리되므로, 구독하여 값을 처리하거나, 구독완료 후 처리 그리고 구독을 해제하는 것만 신경쓰면 됩니다.
+설정 및 해체 논리(teardown logic)는 모두 옵저버블(<code>Observable</code>)에 의해 처리되므로, 구독하여 값을 처리하거나, 구독완료 후 처리 그리고 구독을 해제하는 것만 신경쓰면 됩니다.
 
 ## 기본적인 설명
-우리는 구독자(subscriber)함수를 정의하는 Observable인스턴스를 만들어야 합니다.
-위에도 언급했지만 Observable에 정의한 구독자(subscriber) 함수는 객체를 생성했다고 하여 실행되지 않습니다. 소비자가 Observable의 subscribe() 메서드를 호출할 때 실행되는 함수입니다.
+우리는 구독자(subscriber)함수를 정의하는 옵저버블(<code>Observable</code>)인스턴스를 만들어야 합니다.
+위에도 언급했지만 옵저버블(<code>Observable</code>)에 정의한 구독자(subscriber) 함수는 객체를 생성했다고 하여 실행되지 않습니다. 소비자가 옵저버블(<code>Observable</code>)의 subscribe() 메서드를 호출할 때 실행되는 함수입니다.
 
 구독자(subscriber) 함수는 게시할 값 또는 메시지를 얻거나 생성하는 방법을 정의합니다.
 
-Observable 객체를 실행하여 알림을 수신하려면 <code>subscribe()</code>를 실행하여 Oberver를 받아야 합니다.
-Observer란 쉽게 말해 Observable이 발행한 알림을 수신하는 객체입니다.
+옵저버블(<code>Observable</code>) 객체를 실행하여 알림을 수신하려면 <code>subscribe()</code>를 실행하여 Oberver를 받아야 합니다.
+Observer란 쉽게 말해 옵저버블(<code>Observable</code>)이 발행한 알림을 수신하는 객체입니다.
 <sode>subscribe()</code>메서드는 리턴값으로 알림 수신을 중지하기 위한 Subscription 객체를 받습니다.
 
 ## 뜨겁고(Hot) 차가운(Cold) Observable
-뜨거운(hot) Observable은 Observable이 생성는 즉시 항목을 방출합니다. 생성 후 구독을 수행하는 Observer는 중간부터 구독을 시작합니다.
+뜨거운(hot) 옵저버블(<code>Observable</code>)은 옵저버블(<code>Observable</code>)이 생성는 즉시 항목을 방출합니다. 생성 후 구독을 수행하는 Observer는 중간부터 구독을 시작합니다.
 
-차가운(Cold) Observable은 Observer가 구독을 수행하기 전까지 기다린 후에 방출합니다.
+차가운(Cold) 옵저버블(<code>Observable</code>)은 Observer가 구독을 수행하기 전까지 기다린 후에 방출합니다.
 
-Observable은 위 두가지를 선택할 수 있습니다. 추후 이와 관련해서 블로그할 기회가 있을 것 같습니다.
+옵저버블(<code>Observable</code>)은 위 두가지를 선택할 수 있습니다. 추후 이와 관련해서 블로그할 기회가 있을 것 같습니다.
 
 ## Observer 정의하기
-Observer는 Observable로부터 발생된 알림을 수신하는 핸들러 인터페이스 입니다. 즉, Observable이 알림을 생산하는 생산자라면 Observer는 그 알림을 소비하는 소비자입니다.
-Observable이 전달할 수 있는 3가지 유형의 알림을 처리하는 콜백 메서드를 정의할 수 있습니다.
+Observer는 옵저버블(<code>Observable</code>)로부터 발생된 알림을 수신하는 핸들러 인터페이스 입니다. 즉, 옵저버블(<code>Observable</code>)이 알림을 생산하는 생산자라면 Observer는 그 알림을 소비하는 소비자입니다.
+옵저버블(<code>Observable</code>)이 전달할 수 있는 3가지 유형의 알림을 처리하는 콜백 메서드를 정의할 수 있습니다.
 
 알림의 유형은 아래와 같습니다.
 * **next** : 필수 구현 항목으로, 매개변수로 전달된 값을 조작하는 콜백입니다.
-* **error** : 오류가 전달되었을 경우 처리하는 콜백입니다. 이 유형을 수신하면 Observable은 중지됩니다.
+* **error** : 오류가 전달되었을 경우 처리하는 콜백입니다. 이 유형을 수신하면 옵저버블(<code>Observable</code>)은 중지됩니다.
 * **complete** : 모든 실행이 완료되었을 경우 처리하는 콜백입니다. 전달이 지연되서 늦게 수신된 값들은 완료된 후에도 수신되어 처리될 수 있습니다.
 
 Observer를 정의하는 예제는 아래와 같습니다.
@@ -46,11 +46,11 @@ const myObserver = {
 };
 ```
 
-## Observable 구독하기
-반복적으로 드리는 말씀이지만 Observable 인스턴스는 누군가 구독할 때만 알림을 수신하기 시작합니다.
+## 옵저버블(<code>Observable</code>) 구독하기
+반복적으로 드리는 말씀이지만 옵저버블(<code>Observable</code>) 인스턴스는 누군가 구독할 때만 알림을 수신하기 시작합니다.
 <code>subscribe()</code> 메서드를 호출할 때 Observer 객체를 전달하여 구독해야 합니다.
 
-구독은 아래와 같이 Observable 인스턴스의 <code>subscribe()</code> 메서드를 호출하면 됩니다.
+구독은 아래와 같이 옵저버블(<code>Observable</code>) 인스턴스의 <code>subscribe()</code> 메서드를 호출하면 됩니다.
 매개변수로는 Observer 객체를 넘겨주거나 생성해야 합니다.
 ```javascript
 myObservable.subscribe(myObserver);
@@ -64,32 +64,32 @@ myObservable.subscribe(
 두 방법 모두 <code>next()</code>함수는 필수이고, <code>error()</code> 및 <code>complate()</code>는 선택적 입니다.
 
 <code>next()</code>함수는 문자열, 이벤트 객체, 숫자 또는 구조체 등 거의 모든 값들을 받을 수 있습니다.
-즉, Observable로 부터 발행된 데이터를 스트림처럼 참조합니다.
+즉, 옵저버블(<code>Observable</code>)로 부터 발행된 데이터를 스트림처럼 참조합니다.
 
-## Observable 만들기
-오래 걸렸습니다. 드디어 Observable을 만들어 볼 차례입니다.
-Observable은 생성자 함수뿐만 아니라 다양한 메서드를 통해 생성할 수 있습니다.
+## 옵저버블(<code>Observable</code>) 만들기
+오래 걸렸습니다. 드디어 옵저버블(<code>Observable</code>)을 만들어 볼 차례입니다.
+옵저버블(<code>Observable</code>)은 생성자 함수뿐만 아니라 다양한 메서드를 통해 생성할 수 있습니다.
 
 먼저 생성자 함수를 이용하여 생성하는 법부터 알아보겠습니다.
 
-> ##### Observable import 하기
-> 아! 그전에 Observable 모듈을 추가하는 것이 필요합니다.
-CDN 또는 모듈 import를 사용하여 Observable을 추가해야 합니다.
+> ##### 옵저버블(<code>Observable</code>) import 하기
+> 아! 그전에 옵저버블(<code>Observable</code>) 모듈을 추가하는 것이 필요합니다.
+CDN 또는 모듈 import를 사용하여 옵저버블(<code>Observable</code>)을 추가해야 합니다.
 > <code>import {Observable} from 'rxjs';</code>
 
 > 문법 표현은 일부 타입스크립트 표기법을 따릅니다.
 
-### 생성자를 이용한 Observable 만들기
+### 생성자를 이용한 옵저버블(<code>Observable</code>) 만들기
 ```javascript
 new Observable(subscriber: Function): Observable
 ```
-new 키워드를 이용하여 생성자 함수를 호출하여 Observable을 만들 수 있습니다.
+new 키워드를 이용하여 생성자 함수를 호출하여 옵저버블(<code>Observable</code>)을 만들 수 있습니다.
 
 ##### 매개변수
-* subscriber : Observable이 처음 구독될 때 호출되는 함수. 이 함수의 매개변수로 observer가 전달되며 observer를 이용하여 구독자에게 <code>next()</code>, <code>error</code>, <code>complate</code> 유형을 통지할 수 있습니다.
+* subscriber : 옵저버블(<code>Observable</code>)이 처음 구독될 때 호출되는 함수. 이 함수의 매개변수로 observer가 전달되며 observer를 이용하여 구독자에게 <code>next()</code>, <code>error</code>, <code>complate</code> 유형을 통지할 수 있습니다.
 
 ##### 예제 1 (example_1.js)
-아래의 코드는 new 연산자를 이용하여 Observable을 생성하는 예제입니다.
+아래의 코드는 new 연산자를 이용하여 옵저버블(<code>Observable</code>)을 생성하는 예제입니다.
 ```javascript
 import { Observable } from 'rxjs';
 
@@ -117,7 +117,7 @@ unsubscribe
 ```
 
 ##### 예제 2 (example_2.js)
-이번에는 이벤트를 발행하는 Observable을 생성하는 예제를 보겠습니다.
+이번에는 이벤트를 발행하는 옵저버블(<code>Observable</code>)을 생성하는 예제를 보겠습니다.
 ```javascript
 import { Observable } from 'rxjs';
 import { JSDOM } from 'jsdom'; // nodejs에서 DOM과 HTML을 사용할 수 있게 해주는 라이브러리입니다.
@@ -143,8 +143,8 @@ btn.click(); // 실제 버튼을 클릭합니다.
 ```
 와우! 멋집니다. 다소 이해가 안되는 코드가 있더라도 일단 안심하시고 계속 진행해 보겠습니다.
 
-### Observable을 생성하는 다양한 연산자(Operators)
-생성자 함수 외에도 Observable을 만들 수 있는 다양한 연산자가 존재합니다. 그 중 몇 가지만 소개하도록 하겠습니다.
+### 옵저버블(<code>Observable</code>)을 생성하는 다양한 연산자(Operators)
+생성자 함수 외에도 옵저버블(<code>Observable</code>)을 만들 수 있는 다양한 연산자가 존재합니다. 그 중 몇 가지만 소개하도록 하겠습니다.
 전부 다 살펴 보기에는 사실 추가, 삭제, 변경되는 함수들이 많아서 생산성이 떨어질 것 같습니다. 관심 있으신 분들은 개인적으로 찾아보도록 합시다.
 
 ### create
@@ -152,8 +152,8 @@ btn.click(); // 실제 버튼을 클릭합니다.
 Observable.create(subscriber: Function): Observable
 ```
 어디서 많이 봤던 구조입니다. 그렇습니다. new 연산자를 통해서 만든 것과 똑같습니다.
-RxJS에서는 Observable의 정적 메소드로 정의되어 있습니다.
-create 메서드는 내부적으로 Observable의 생성자 함수를 사용하여 새로운 Observable을 생성합니다.
+RxJS에서는 옵저버블(<code>Observable</code>)의 정적 메소드로 정의되어 있습니다.
+create 메서드는 내부적으로 옵저버블(<code>Observable</code>)의 생성자 함수를 사용하여 새로운 옵저버블(<code>Observable</code>)을 생성합니다.
 
 예제 1번을 기본으로 create 함수를 써서 바꿔 보겠습니다.
 ##### 예제 3 (example_3.js)
@@ -182,11 +182,11 @@ input으로 다양한 값을 받을 수 있습니다.
 ObservableInput이라는 타입은 SubscribableOrPromise 또는 ArrayLike 또는 Iterable을 뜻 합니다.
 SubscribableOrPromise이라는 타입은 Subscribable 또는 PromiseLike 또는 ObservableLike 타입을 뜻 합니다.
 
-복잡하게 생각하지 말고 Observable 외에도 Promise와 배열 또는 Iterable 객체들을 넘길 수 있다고 생각하시면 됩니다.
+복잡하게 생각하지 말고 옵저버블(<code>Observable</code>) 외에도 Promise와 배열 또는 Iterable 객체들을 넘길 수 있다고 생각하시면 됩니다.
 
 scheduler는 선택사항이며, Scheduler 문서에서 다시 확인하도록 하겠습니다.
 
-아래 예제에서는 Promise, Array, Iterable을 Observable로 바꿔 보겠습니다.
+아래 예제에서는 Promise, Array, Iterable을 옵저버블(<code>Observable</code>)로 바꿔 보겠습니다.
 ##### 예제 4 (example_4.js)
 ```javascript
 import { from } from 'rxjs';
@@ -233,7 +233,7 @@ observable3.subscribe({
 ```javascript
 interval(period: number, scheduler?): Observable<number>
 ```
-지정된 밀리세컨드(period)마다 일련번호(0부터 1씩 증가하는 숫자)를 방출하는 Observable을 만듭니다.
+지정된 밀리세컨드(period)마다 일련번호(0부터 1씩 증가하는 숫자)를 방출하는 옵저버블(<code>Observable</code>)을 만듭니다.
 
 ```javascript
 import { interval } from 'rxjs';
@@ -272,7 +272,7 @@ btn.click(); // 실제 버튼을 클릭합니다.
 ```
 
 ### ajax
-AJAX 요청을 Observable로 만들어 준답니다. 써보진 않았습니다.
+AJAX 요청을 옵저버블(<code>Observable</code>)로 만들어 준답니다. 써보진 않았습니다.
 ```javascript
 import { ajax } from 'rxjs/ajax';
 
@@ -285,7 +285,7 @@ txt.subscribe({
 
 ### 그 밖에 다양한 creation Operator들이 존재합니다.
 사실 RxJS는 짜증날 정도로 여러 함수들이 생기고 사라지거나, 문법이 바뀌며, 모듈 구조까지 개편되고 있습니다.
-자신이 사용하는 RxJS 버전에 맞춰서 API를 찾아보면서 Observable을 학습해야 할 것 같습니다.
+자신이 사용하는 RxJS 버전에 맞춰서 API를 찾아보면서 옵저버블(<code>Observable</code>)을 학습해야 할 것 같습니다.
 
 ### [Operators 챕터로 이동](../operators)
 

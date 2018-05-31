@@ -19,14 +19,14 @@
 ## Reactive Extension(Rx)?
 Rx는 생산자/소비자 콜백을 사용한 옵저버 패턴부터 구성과 변환, 스케줄링, 스로틀링, 오류처리, 생명주기 관리를 할 수 있는 수많은 연산자를 제공하는 라이브러리입니다.
 
-Rx의 핵심은 데이터나 이벤트 스트림을 나타내는 Observable타입입니다.
+Rx의 핵심은 데이터나 이벤트 스트림을 나타내는 옵저버블(<code>Observable</code>)타입입니다.
 밀어내기(reactive, push) 방식을 지향하지만 끌어오기(interactive, pull) 방식으로도 사용이 가능합니다.
 즉시 동작하지 않고 지연 실행되며, 비동기와 동기 방식 모두 사용 가능합니다.
 또한 0, 1, 다수 혹은 무한 개를 아우르는 이벤트를 다룰 수 있습니다.
 
 ### 밀어내기와 끌어오기
 리액티브의 핵심은 밀어내기의 지원 여부입니다.
-Observable과 이와 관련한 Observer 타입 시그니처는 이벤트 밀어내기를 지원합니다.
+옵저버블(<code>Observable</code>)과 이와 관련한 Observer 타입 시그니처는 이벤트 밀어내기를 지원합니다.
 
 밀어내기를 통한 이벤트 수신을 지원하기 위해서는 Observable/Observer 쌍을 구독(subscribe)으로 연결합니다.
 Obervable은 데이터 스트림을 나타내며, Observer로부터 구독할 수 있습니다.
@@ -40,16 +40,16 @@ onNext 메서드는 전혀 호출되지 않거나 한 번에서 여러 번, 혹�
 onError와 onComplated는 종료 이벤트로, 둘 중 하나만 단 한번 호출됩니다.
 
 ### 비동기와 동기
-Observable은 기본적으로 동기 방식입니다. 하지만 일반적으로 비동기 방식으로 동작합니다.
-Observable 이벤트 생성의 중요한 기준은 블로킹/논블로킹 여부이고 동기/비동기 여부는 아닙니다.
+옵저버블(<code>Observable</code>)은 기본적으로 동기 방식입니다. 하지만 일반적으로 비동기 방식으로 동작합니다.
+옵저버블(<code>Observable</code>) 이벤트 생성의 중요한 기준은 블로킹/논블로킹 여부이고 동기/비동기 여부는 아닙니다.
 
 동기방식을 유지하는 일반적인 이유는 스트림 조합과 연산자를 통한 변환 때문입니다.
 RxJs는 데이터를 조작하거나 결합하고 변환하기 위한 map(), filter(), take(), flatMap(), groupBy() 같은 연산자로 구성된 거대한 API입니다.
 대부분의 연산자는 동기 방식이며, onNext 안에서 이벤트가 지나가는 동안 동기 방식으로 계산을 수행합니다.
 
 ### 동시성과 병렬성
-단일 Observable 스트림은 동시성이나 병렬성 둘다 허용하지 않습니다.
-대신 여러 비동기 Observable의 조합을 통해 이를 수행합니다.
+단일 옵저버블(<code>Observable</code>) 스트림은 동시성이나 병렬성 둘다 허용하지 않습니다.
+대신 여러 비동기 옵저버블(<code>Observable</code>)의 조합을 통해 이를 수행합니다.
 
 > #### 병렬성
 > 동시에 수행.
@@ -59,41 +59,41 @@ RxJs는 데이터를 조작하거나 결합하고 변환하기 위한 map(), fil
 > CPU가 쓰래드를 통해 동시 실행되지만, 시분할 방식으로 병렬 실행은 아님
 
 Obserable의 규약에 의하면 (onNext, onComplated, onError) 이벤트는 동시에 방출되지 않습니다.
-즉, 하나의 Observable 스트림은 항상 직렬화되어 스레드에 안전해야 합니다. 이 뜻은 순서가 보장된다는 것과 같습니다.
+즉, 하나의 옵저버블(<code>Observable</code>) 스트림은 항상 직렬화되어 스레드에 안전해야 합니다. 이 뜻은 순서가 보장된다는 것과 같습니다.
 
-항상 직렬화되는 Observable이 여러개 있다면 연산자를 통해 병합할 수 있습니다.
-각각의 Observable에서 방출하는 이벤트는 직렬화되어 순서가 일정합니다.
+항상 직렬화되는 옵저버블(<code>Observable</code>)이 여러개 있다면 연산자를 통해 병합할 수 있습니다.
+각각의 옵저버블(<code>Observable</code>)에서 방출하는 이벤트는 직렬화되어 순서가 일정합니다.
 
-* A라는 Observable에서 a, b, c 이벤트를 방출했다면 항상 순서는 a->b->c입니다.
-* B라는 Observablf에서 1, 2, 3 이벤트를 방출했다면 항상 순서는 1->2->3입니다.
+* A라는 옵저버블(<code>Observable</code>)에서 a, b, c 이벤트를 방출했다면 항상 순서는 a->b->c입니다.
+* B라는 옵저버블(<code>Observable</code>)에서 1, 2, 3 이벤트를 방출했다면 항상 순서는 1->2->3입니다.
 * 하지만 A와 B를 merge를 이용해서 병합했다면, A와 B의 순서는 보장할 수 없습니다.
 
 ### 느긋함과 조급함
-Observable 타입은 느긋합니다(lazy). 반대로 자바의 Future는 일단 생성이 되면 즉시 동작하는 조급한(eager) 유형입니다.
-Observable은 구독하지 않으면 아무것도 동작하지 않습니다.
+옵저버블(<code>Observable</code>) 타입은 느긋합니다(lazy). 반대로 자바의 Future는 일단 생성이 되면 즉시 동작하는 조급한(eager) 유형입니다.
+옵저버블(<code>Observable</code>)은 구독하지 않으면 아무것도 동작하지 않습니다.
 
-느긋함은 경쟁 조건(race condition)으로 인한 데이터 유실 염려 없이 Observable을 모아 구성할 수 있게 해 줍니다.
+느긋함은 경쟁 조건(race condition)으로 인한 데이터 유실 염려 없이 옵저버블(<code>Observable</code>)을 모아 구성할 수 있게 해 줍니다.
 
 이것은 두가지를 의미합니다.
 
 ###### 생성이 아니라 구독이 작업을 시작합니다.
-Observable 생성 과정에서 작성되는 Observer 코드는 나중에 구독이 될 경우 해야할 작업을 미리 정의해 둔다고 보시면 됩니다.
+옵저버블(<code>Observable</code>) 생성 과정에서 작성되는 Observer 코드는 나중에 구독이 될 경우 해야할 작업을 미리 정의해 둔다고 보시면 됩니다.
 
-###### Observable은 재사용할 수 있습니다.
-Observable은 느긋하기 때문에 특정 인스턴스를 여러 번 호출할 수 있습니다.
+###### 옵저버블(<code>Observable</code>)은 재사용할 수 있습니다.
+옵저버블(<code>Observable</code>)은 느긋하기 때문에 특정 인스턴스를 여러 번 호출할 수 있습니다.
 
 ### 쌍대성(duality)
-Observable은 iterable(반복기)의 비동기 쌍대(duality)입니다.
-즉, Observable은 끌어오기(pull) 대신 데이터 흐름을 뒤집어 밀어내는(push) 특성만 제외하면 iterable의 모든 기능을 제공하고 있습니다.
-이말은 iterable로 동기화 끌어오기 구현이 가능하다면 Observable과 Observer를 이용해 비동기적인 밀어내기 방식으로 구현할 수 있다는 뜻 입니다.
+옵저버블(<code>Observable</code>)은 iterable(반복기)의 비동기 쌍대(duality)입니다.
+즉, 옵저버블(<code>Observable</code>)은 끌어오기(pull) 대신 데이터 흐름을 뒤집어 밀어내는(push) 특성만 제외하면 iterable의 모든 기능을 제공하고 있습니다.
+이말은 iterable로 동기화 끌어오기 구현이 가능하다면 옵저버블(<code>Observable</code>)과 Observer를 이용해 비동기적인 밀어내기 방식으로 구현할 수 있다는 뜻 입니다.
 
 ### 캬디널리티(Cardinality)
 카디널리티는 수학에서 집합의 크기, 특히 무한 개의 원소를 갖는 집합의 크기를 논하기 위해 도입된 개념입니다.
 
-Observable은 여러 개의 값을 비동기적으로 밀어낼 수 있습니다.
+옵저버블(<code>Observable</code>)은 여러 개의 값을 비동기적으로 밀어낼 수 있습니다.
 이것은 이벤트 스트림 또는 다중 값(multi-valued) 응답을 다룰 수 있으며, 여래 개의 단일 값(single-valued) 응답을 구성할 수도 있습니다.
 
-iterable보다 Obervable의 장점은 컬렉션 전체가 도착할 때까지 기다리는 iterable에 비해 Observable은 기다리지 않고 항목을 받는 대로 처리할 수 있습니다.
+iterable보다 Obervable의 장점은 컬렉션 전체가 도착할 때까지 기다리는 iterable에 비해 옵저버블(<code>Observable</code>)은 기다리지 않고 항목을 받는 대로 처리할 수 있습니다.
 이는 네트워크 지연이 빈번한 온라인 환경에서 고객에게 더 좋은 UX를 제공할 수 있습니다.
 
 ## 리액티브 추상화

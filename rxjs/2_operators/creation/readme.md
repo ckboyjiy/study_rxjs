@@ -1,16 +1,16 @@
 ## 생성 연산자 (Creation Operators)
 
 ### create
-Observable 챕터에서 잠시 사용했던 <code>create</code> 연산자입니다.
-<code>create</code> 연산자는 Observable의 정적 연산자로 Observable의 생성자 함수를 호출하여 새로운 차가운 Observable(Cold Observable)을 생성합니다.
+옵저버블(<code>Observable</code>) 챕터에서 잠시 사용했던 <code>create</code> 연산자입니다.
+<code>create</code> 연산자는 옵저버블(<code>Observable</code>)의 정적 연산자로 옵저버블(<code>Observable</code>)의 생성자 함수를 호출하여 새로운 차가운 옵저버블(Cold Observable)을 생성합니다.
 
 ReactiveX의 명세상에는 Creation Operator로 되어 있는데, RxJS에서는 정적 메서드로 구현되어 있습니다.
 
 [Observable의 create 내용 확인하기](../1_observable#create)
 
 ### defer
-defer 연산자는 Observable의 생성 조차 관찰자(Observer)가 구독을 시작하면 생성합니다.
-또한 관찰자가(Observer)가 구독할 때마다 매번 새로운 Observable이 생성됩니다.
+defer 연산자는 옵저버블(<code>Observable</code>)의 생성 조차 관찰자(Observer)가 구독을 시작하면 생성합니다.
+또한 관찰자가(Observer)가 구독할 때마다 매번 새로운 옵저버블(<code>Observable</code>)이 생성됩니다.
 
 ```javascript
 defer(observableFactory: function(): SubscribableOrPromise): Observable
@@ -20,7 +20,7 @@ defer(observableFactory: function(): SubscribableOrPromise): Observable
 함수 내부에서 원하는 조건에 따라 SubscribableOrPromise 타입을 반환하면 됩니다. (SubscribableOrPromise 타입은 Observable 또는 Promise 객체)
 
 ##### 예제 1 (example_1.js)
-이 예제는 구독할 때마다 마우스 이벤트 또는 주기적으로 일련번호를 방출하는 Observable 중 하나를 받습니다.
+이 예제는 구독할 때마다 마우스 이벤트 또는 주기적으로 일련번호를 방출하는 옵저버블(<code>Observable</code>) 중 하나를 받습니다.
 ```javascript
 import { defer, fromEvent, interval } from 'rxjs';
 import { JSDOM } from 'jsdom';
@@ -41,11 +41,11 @@ div.click();
 ```
 
 ### empty, throwError
-empty는 방출 항목없이 완료 타입만 방출하는 빈 Observable을 생성합니다.
+empty는 방출 항목없이 완료 타입만 방출하는 빈 옵저버블(<code>Observable</code>)을 생성합니다.
 throwError는 방출 항목없이 에러 타입만 방출하는 빈 observable을 생성합니다.
 
 ##### 예제 2 (example_2.js)
-다음 예제는 홀수 초일 때만 "of('a', 'b', 'c')" Observable을 방출하고 짝수일 대는 빈 Observable을 방출합니다.
+다음 예제는 홀수 초일 때만 "of('a', 'b', 'c')" 옵저버블(<code>Observable</code>)을 방출하고 짝수일 대는 빈 옵저버블(<code>Observable</code>)을 방출합니다.
 ```javascript
 import { EMPTY, interval, of } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
@@ -58,7 +58,7 @@ result.subscribe(x => console.log(x));
 ```
 
 ##### 예제 3 (example_3.js)
-다음 예제는 "of('a', 'b', 'c')" Observable을 방출하다가 13초가 되면 에러를 방출합니다.
+다음 예제는 "of('a', 'b', 'c')" 옵저버블(<code>Observable</code>)을 방출하다가 13초가 되면 에러를 방출합니다.
 ```javascript
 import { interval, throwError } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
@@ -69,17 +69,17 @@ interval(1000).pipe(
 ```
 
 ### from
-Observable 챕터에서 학습했던 <code>from</code> 연산자입니다.
+옵저버블(<code>Observable</code>) 챕터에서 학습했던 <code>from</code> 연산자입니다.
 
 [Observable의 from 내용 확인하기](../1_observable#from)
 
 ### interval
-Observable 챕터에서 학습했던 <code>interval</code> 연산자입니다.
+옵저버블(<code>Observable</code>) 챕터에서 학습했던 <code>interval</code> 연산자입니다.
 
 [Observable의 interval 내용 확인하기](../1_observable#interval)
 
 ### range
-지정된 범위의 일련번호를 차례대로 방출하는 Observable을 생성합니다.
+지정된 범위의 일련번호를 차례대로 방출하는 옵저버블(<code>Observable</code>)을 생성합니다.
 ```javascript
 range(start: number = 0, count: number = 0, scheduler?: SchedulerLike): Observable<number>
 ```
@@ -98,7 +98,7 @@ numbers.subscribe(x => console.log(x));
 ```
 
 ### repeat
-원본 Observable을 지정한 숫자만큼 반복하여 방출합니다.
+원본 옵저버블(<code>Observable</code>)을 지정한 숫자만큼 반복하여 방출합니다.
 ```javascript
 repeat<T>(count: number = -1): MonoTypeOperatorFunction<T>
 ```
@@ -108,7 +108,7 @@ repeat<T>(count: number = -1): MonoTypeOperatorFunction<T>
 * MonoTypeOperatorFunction :
 
 ##### 예제 5 (example_5.js)
-다음 예제는 단순히 숫자 1을 방출하는 Observable을 3번 반복해서 방출시킵니다.
+다음 예제는 단순히 숫자 1을 방출하는 옵저버블(<code>Observable</code>)을 3번 반복해서 방출시킵니다.
 ```javascript
 import { of } from 'rxjs';
 import { repeat } from 'rxjs/operators';
@@ -160,4 +160,3 @@ timer(1000).subscribe(val => console.log(val));
 timer(1000, 2000).subscribe(val => console.log(val));
 ```
 
-생성 연산자는 여기까지 소개하고 이제 변환 연산자에 대해서 알아 보겠습니다.
