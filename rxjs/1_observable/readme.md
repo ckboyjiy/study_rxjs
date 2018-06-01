@@ -17,9 +17,9 @@
 
 구독자(<code>subscriber</code>) 함수는 게시할 값 또는 메시지를 얻거나 생성하는 방법을 정의합니다.
 
-옵저버블(<code>Observable</code>) 객체를 실행하여 알림을 수신하려면 <code>subscribe()</code>를 실행하여 Oberver를 받아야 합니다.
+옵저버블(<code>Observable</code>) 객체를 실행하여 알림을 수신하려면 <code>subscribe()</code>메서드를 실행하여 Oberver를 받아야 합니다.
 옵저버(<code>Observer</code>)란 쉽게 말해 옵저버블(<code>Observable</code>)이 발행한 알림을 수신하는 객체입니다.
-<sode>subscribe()</code>메서드는 리턴값으로 알림 수신을 중지하기 위한 Subscription 객체를 받습니다.
+<code>subscribe()</code>메서드는 리턴값으로 알림 수신을 중지하기 위한 Subscription 객체를 받습니다.
 
 ## 뜨겁고(Hot) 차가운(Cold) Observable
 뜨거운(hot) 옵저버블(<code>Observable</code>)은 옵저버블(<code>Observable</code>)이 생성하는 즉시 항목을 방출합니다. 생성 후 구독을 수행하는 옵저버(<code>Observer</code>)는 중간부터 구독을 시작합니다.
@@ -83,10 +83,10 @@ CDN 또는 모듈 import를 사용하여 옵저버블(<code>Observable</code>)�
 ```javascript
 new Observable(subscriber: Function): Observable
 ```
-new 키워드를 이용하여 생성자 함수를 호출하여 옵저버블(<code>Observable</code>)을 만들 수 있습니다.
+new 연산자를 이용하여 생성자 함수를 호출하여 옵저버블(<code>Observable</code>)을 만들 수 있습니다.
 
 ##### 매개변수
-* subscriber : 옵저버블(<code>Observable</code>)이 처음 구독될 때 호출되는 함수. 이 함수의 매개변수로 observer가 전달되며 observer를 이용하여 구독자에게 <code>next()</code>, <code>error</code>, <code>complate</code> 유형을 통지할 수 있습니다.
+* subscriber : 옵저버블(<code>Observable</code>)이 처음 구독될 때 호출되는 함수. 이 함수의 매개변수로 observer가 전달되며 observer를 이용하여 구독자에게 <code>next</code>, <code>error</code>, <code>complate</code> 유형을 통지할 수 있습니다.
 
 ##### 예제 1 (example_1.js)
 아래의 코드는 new 연산자를 이용하여 옵저버블(<code>Observable</code>)을 생성하는 예제입니다.
@@ -287,7 +287,7 @@ txt.subscribe({
 사실 RxJS는 짜증날 정도로 여러 함수들이 생기고 사라지거나, 문법이 바뀌며, 모듈 구조까지 개편되고 있습니다.
 자신이 사용하는 RxJS 버전에 맞춰서 API를 찾아보면서 옵저버블(<code>Observable</code>)을 학습해야 할 것 같습니다.
 
-### [Operators 챕터로 이동](../operators)
+### [Operators 챕터로 이동](../2_operators)
 
 ### 유용한 사이트
 [ReactiveX 사이트](http://reactivex.to)

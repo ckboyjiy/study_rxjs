@@ -14,7 +14,7 @@
 AsyncSubject는 마지막 방출값을 기억하고 있다가 complete()를 호출하면 그 값을 구독자에게 보냅니다. AsyncSubject가 완료되지 않으면 마지막 항목을 제외한 나머지는 무시됩니다.
 
 ##### 예제 1 (example_1.js)
-다음 예제는 구독자에 방출한 항목 중 <code>complete()</code>이 호출되면 마지막으로 방출한 항목만 구독됩니다.
+다음 예제는 구독자에 방출한 항목 중 <code>complete()</code>가 호출되면 마지막으로 방출한 항목만 구독됩니다.
 ```javascript
 import { AsyncSubject } from 'rxjs';
 
@@ -34,7 +34,7 @@ subject.complete(); // complete를 호출해야 비로소 마지막 항목만 �
 ![AsyncSubject.complete](http://reactivex.io/documentation/operators/images/S.AsyncSubject.png)
 
 ##### 예제 2 (example_2.js)
-다음 예제는 <code>complete()</code>가 호출되지 않으면 구독자에게 항목을 방출되지 않습니다.
+다음 예제는 <code>complete()</code>가 호출되지 않으면 구독자에게 항목을 방출하지 않습니다.
 ```javascript
 import { AsyncSubject } from 'rxjs';
 
