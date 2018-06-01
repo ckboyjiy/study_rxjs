@@ -22,7 +22,7 @@
 <sode>subscribe()</code>메서드는 리턴값으로 알림 수신을 중지하기 위한 Subscription 객체를 받습니다.
 
 ## 뜨겁고(Hot) 차가운(Cold) Observable
-뜨거운(hot) 옵저버블(<code>Observable</code>)은 옵저버블(<code>Observable</code>)이 생성는 즉시 항목을 방출합니다. 생성 후 구독을 수행하는 옵저버(<code>Observer</code>)는 중간부터 구독을 시작합니다.
+뜨거운(hot) 옵저버블(<code>Observable</code>)은 옵저버블(<code>Observable</code>)이 생성하는 즉시 항목을 방출합니다. 생성 후 구독을 수행하는 옵저버(<code>Observer</code>)는 중간부터 구독을 시작합니다.
 
 차가운(Cold) 옵저버블(<code>Observable</code>)은 옵저버(<code>Observer</code>)가 구독을 수행하기 전까지 기다린 후에 방출합니다.
 
