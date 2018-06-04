@@ -203,8 +203,18 @@ after 1
 delay가 지정되지 않으면, 부드러운 애니메이션을 만드는데 사용될 수 있습니다.
 이것은 브라우저의 화면이 갱신되기 바로 전에 예정된 작업을 수행하도록 하여 가능한 한 효율적으로 애니메이션을 수행합니다.
 
-##### 예제 8 (example_8.js)
+##### 예제 8 (example_8.html with example_8.js)
 다음은 div 엘리먼트의 높이에 애니메이션을 적용하는 예제입니다.
 > #### 이 예제는 브라우저를 통해서 확인하세요!
 > 해당 예제는 webpack과 babel-loader를 이용하여 트랜스파일링 후 html파일에 포함되어 있습니다.
 ```javascript
+import { animationFrameScheduler } from 'rxjs';
+
+var div = document.querySelector('.some-div');
+
+animationFrameScheduler.schedule(function (height) {
+    div.style.height = height + "px";
+    this.schedule(height + 1); // 'this'는 현재 실행 중인 액션을 참조합니다. scheduler을 재귀 호출하여 계속 상태를 변경합니다.
+}, 0, 0);
+
+```
