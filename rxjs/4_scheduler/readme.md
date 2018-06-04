@@ -1,5 +1,5 @@
 # 스케줄러 - Scheduler
-Rx의 스케줄러는 Observable 연산차 체인에 멀티 스레딩을 적용하고 싶을 때 사용하는 기능입니다.
+Rx의 스케줄러는 Observable 연산자 체인에 멀티 스레딩을 적용하고 싶을 때 사용하는 기능입니다.
 하지만 RxJS에서는 다른 언어에서 제공하는 스케줄러와 다른 방식으로 작동합니다.
 
 ## 자바스크립트의 스케줄러
@@ -74,10 +74,11 @@ const proxyObserver = { // realObserver를 한번 감싸 내부적으로 처리�
 <code>asyncScheduler</code>는 지정한 지연시간에 관계없이 setTimeout 또는 setInterval을 사용하여 작동합니다.
 
 ## 스케줄러의 유형
-위에서 사용한 <code>asyncScheduler</code>는 RxJS에서 제공하는 내장 스케줄러 중 하나입니다. 그 밖에 유형은 아래와 같습니다.
+위에서 사용한 <code>asyncScheduler</code>는 RxJS에서 제공하는 내장 스케줄러 중 하나입니다. 주요 유형은 아래와 같습니다.
 
 ### AsyncScheduler
-> setTimeout(task, duration)을 사용한 것 처럼!
+> setTimeout(task, duration)을 통해 macro task 큐를 사용합니다.
+
 <code>AsyncScheduler</code>는 자바스크립트의 이벤트 큐(task queue)를 이용하여 비동기적으로 작업을 수행합니다.
 
 특정 간격으로 반복하거나 지정시간만큼 지연시키는데 사용하세요!
@@ -110,7 +111,8 @@ N
 ```
 
 ### AsapScheduler
-> ASAP (As Soon As Possible) - 비동기 작업을 가능한 빨리!!
+> ASAP (As Soon As Possible) - micro task 큐를 사용하여 비동기 작업을 가능한 빨리 처리합니다.
+
 <code>AsapScheduler</code>는 매개변수로 delay를 지정하면 <code>AsyncScheduler</code>와 동일하게 작동합니다.
 하지만 delay가 0이면 현재 동기적으로 작업 중인 코드를 기다린 후 최대한 빨리 실행하려고 합니다.
 
@@ -145,7 +147,8 @@ asap
 delay가 지정된다면 asap은 async와 동일하게 작동합니다.
 
 ### QueueScheduler
-> 반복에 반복에 반복!!
+> 동기적이며 순차적으로 처리합니다.
+
 <code>QueueScheduler</code>는 delay가 설정되면 <code>AsyncScheduler</code>와 동일하게 작동합니다.
 delay 설정 없이 사용되면 동기적으로 작업을 처리합니다. 스케줄된 작업 내부에서 또 다른 작업이 <code>QueueScheduler</code>에 의해 스케줄링 된다면 처리를 중단되고 내부에 다른 작업이 완료될 대까지 큐에서 대기합니다.
 그냥 쉽게 큐 자료구조를 생각하시면 됩니다.
@@ -155,13 +158,17 @@ delay 설정 없이 사용되면 동기적으로 작업을 처리합니다. 스�
 ```javascript
 import { queueScheduler } from 'rxjs';
 
+console.log('before schedule');
 queueScheduler.schedule(() => {
     queueScheduler.schedule(() => console.log('second'));
     console.log('first');
 });
+console.log('after schedule');
 /* Output
+before schedule
 first
 second
+after schedule
  */
 ```
 
@@ -190,7 +197,8 @@ after 1
 큐 스케줄러 내부에서 큐 스케줄러가 중첩되서 호출될 경우 처음 큐의 작업이 모두 완료될 때까지 다음 큐들은 동작하지 않습니다.
 
 ### AnimationFrameScheduler
-> 한편의 애니매이션처럼...
+> 브라우저의 화면 갱신 직전에 호출됩니다.
+
 <code>AnimationFrameScheduler</code>는 delay가 설정되면, <code>AsyncScheduler</code>와 동일하게 작동합니다.
 delay가 지정되지 않으면, 부드러운 애니메이션을 만드는데 사용될 수 있습니다.
 이것은 브라우저의 화면이 갱신되기 바로 전에 예정된 작업을 수행하도록 하여 가능한 한 효율적으로 애니메이션을 수행합니다.
