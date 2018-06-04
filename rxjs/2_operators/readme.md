@@ -33,16 +33,16 @@ RxJS에서는 도트 체이닝 대신 새로운 <code>Pipeable Operators</code>�
 ## 연산자의 분류
 연산자는 아래와 같이 구분할 수 있습니다.
 * [Observable 생성](./creation) : 새로운 옵저버블(<code>Observable</code>)을 만드는 연산자
-* Observable 변환 : 옵저버블(<code>Observable</code>)이 배출한 항목을 변환하는 연산자
-* Observable 필터링 : 옵저버블(<code>Observable</code>)이 항목을 선택적으로 배출하는 연산자
-* Observable 결합 : 여러개의 옵저버블(<code>Observable</code>)을 하나의 옵저버블(<code>Observable</code>)로 만드는 연산자
-* 오류 처리 : 옵저버블(<code>Observable</code>)에서 던진 오류를 복구할 수 있도록 도와주는 연산자
-* 조건 연산 : 옵저버블(<code>Observable</code>) 또는 옵저버블(<code>Observable</code>)이 배출한 항목을 평가하는 연산자
-* 수학과 집계 : 옵저버블(<code>Observable</code>)이 배출한 항목 전체를 대상으로 평가하는 연산자
+* [Observable 변환](./transformation) : 옵저버블(<code>Observable</code>)이 배출한 항목을 변환하는 연산자
+* [Observable 필터링](./filtering) : 옵저버블(<code>Observable</code>)이 항목을 선택적으로 배출하는 연산자
+* [Observable 결합](./combination) : 여러개의 옵저버블(<code>Observable</code>)을 하나의 옵저버블(<code>Observable</code>)로 만드는 연산자
+* [오류 처리](./error_handling) : 옵저버블(<code>Observable</code>)에서 던진 오류를 복구할 수 있도록 도와주는 연산자
+* [조건 연산](./condition_and_boolean) : 옵저버블(<code>Observable</code>) 또는 옵저버블(<code>Observable</code>)이 배출한 항목을 평가하는 연산자
+* [수학과 집계](./mathematical_and_aggregate) : 옵저버블(<code>Observable</code>)이 배출한 항목 전체를 대상으로 평가하는 연산자
 * 역압(backpressure) : 옵저버(<code>Observer</code>)가 소비하는 것보다 더 빠르게 항목들을 생산하는 옵저버블(<code>Observable</code>)을 복제하는 연산자
 * 연결 가능한 연산자 : 특정 기능에 특화된 옵저버블(<code>Observable</code>)로 가공하는 연산자
 * 타 객체로 변환 : 옵저버블(<code>Observable</code>)을 다른 객체로 변환하는 연산자
-* 유틸리티(헬퍼) : 그 밖에 다양한 헬퍼 연산자
+* [유틸리티(헬퍼)](./utility) : 그 밖에 다양한 헬퍼 연산자
 
 옵저버블(<code>Observable</code>)의 핵심은 용도에 따라 다양한 연산자를 활용하는 것이라고 할 수 있습니다.
 모든 연산자를 다 살펴볼 수는 없지만 분류 별로 몇 가지의 연산자를 살펴 보도록 하겠습니다.
