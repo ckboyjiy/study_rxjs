@@ -218,3 +218,8 @@ animationFrameScheduler.schedule(function (height) {
 }, 0, 0);
 
 ```
+
+### VirtualTimeScheduler
+> 가상의 시간위에 지연된 순서대로 정렬하여 실행합니다.
+
+<code>VirtualTimeScheduler</code>는 주로 테스트에 이용됩니다. 추후 설명 및 예제를 추가할 수 있도록 하겠습니다.
