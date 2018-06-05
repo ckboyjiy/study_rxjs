@@ -1,6 +1,20 @@
 # 생성 연산자 (Creation Operators)
 새로운 옵저버블을 생성하는 연산자입니다.
 
+## ajax
+AJAX 요청을 옵저버블(<code>Observable</code>)로 만들어 준답니다. 써보진 않았습니다.
+
+#### 예제 1 ([ajax.js](./ajax.js))
+```javascript
+import { ajax } from 'rxjs/ajax';
+
+const txt = ajax('API URL');
+txt.subscribe({
+    next: res => console.log(res.status, res.response),
+    complete: () => console.log('complete')
+});
+```
+
 ## create
 <code>create</code> 연산자는 옵저버블(<code>Observable</code>)의 정적 연산자로 옵저버블(<code>Observable</code>)의 생성자 함수를 호출하여 새로운 차가운 옵저버블(Cold Observable)을 생성합니다.
 
