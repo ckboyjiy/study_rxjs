@@ -149,11 +149,11 @@ btn.click(); // 실제 버튼을 클릭합니다.
 아래의 링크에서 확인하실 수 있습니다.
 * [생성 연산자](../2_operators/creation)
 
-### 그 밖에 다양한 creation Operator들이 존재합니다.
+### 그 밖에 다양한 연산자(Operator)가 존재합니다.
 사실 RxJS는 짜증날 정도로 여러 함수들이 생기고 사라지거나, 문법이 바뀌며, 모듈 구조까지 개편되고 있습니다.
 자신이 사용하는 RxJS 버전에 맞춰서 API를 찾아보면서 옵저버블(<code>Observable</code>)을 학습해야 할 것 같습니다.
 
-### [Operators 챕터로 이동](../2_operators)
+[Operators 챕터로 이동](../2_operators)
 
 ### 유용한 사이트
 [ReactiveX 사이트](http://reactivex.to)
