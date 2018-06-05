@@ -13,4 +13,5 @@ Example Two: 3
 Example Two: 4
 Example Two: 5
 // 5초 후에는 디바운스 시간이 방출시간보다 커져 이후 모든 값은 버려집니다.
+Example Two: 9 // 뒤에 더이상 방출된 항목이 없으니 9는 출력됩니다.
  */
