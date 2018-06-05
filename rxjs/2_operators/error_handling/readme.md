@@ -5,12 +5,12 @@
 ```javascript
 catchError<T, R>(selector: (err: any, caught: Observable<T>) => ObservableInput<R>): OperatorFunction<T, T | R>
 ```
-### 매개변수
+#### 매개변수
 * selector : 에러를 받아 처리 후 옵저버블을 반환하는 함수
 
 오류를 방출한 옵저버블에 새로운 옵저버블을 반환하거나 오류를 던져서 처리합니다.
 
-### 예제 1 ([catchError_1.js](./catchError_1.js))
+#### 예제 1 ([catchError_1.js](./catchError_1.js))
 다음은 옵저버블에서 에러가 방출 시 다른 옵저버블로 방출하는 예제입니다.
 ```javascript
 import { of } from 'rxjs';
@@ -30,7 +30,7 @@ ob.pipe(
 ).subscribe(x => console.log(x));
 ```
 
-### 예제 2 ([catchError_2.js](./catchError_2.js))
+#### 예제 2 ([catchError_2.js](./catchError_2.js))
 다음은 <code>retry</code> 연산자처럼 에러가 발생하면 다시 시도하는 예제입니다.
 ```javascript
 import { of } from 'rxjs';
@@ -49,7 +49,7 @@ ob.pipe(
 ).subscribe(x => console.log(x));
 ```
 
-### 예제 3 ([catchError_3.js](./catchError_3.js))
+#### 예제 3 ([catchError_3.js](./catchError_3.js))
 다음은 에러가 발생하면 새로운 에러를 생성해서 방출하는 예제입니다.
 ```javascript
 import { of } from 'rxjs';
