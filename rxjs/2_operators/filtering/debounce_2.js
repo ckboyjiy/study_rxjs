@@ -1,7 +1,7 @@
 import { interval, timer } from 'rxjs';
-import { debounce } from 'rxjs/operators';
+import { debounce, take } from 'rxjs/operators';
 
-const source = interval(1000); // 1초마다 일련번호를 방출합니다.
+const source = interval(1000).pipe(take(10)); // 1초마다 일련번호를 방출합니다.
 const debounceSource = source.pipe(
     debounce( val => timer(val * 200)) // 방출될 때마다 0.2초씩 방출 시간을 늘립니다.
 ).subscribe(val => console.log(`Example Two: ${val}`));
