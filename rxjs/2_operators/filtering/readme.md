@@ -147,4 +147,251 @@ result.subscribe(x => console.log(x));
 /* Output
 4
  */
- ```
+```
+
+## **distinct**
+```javascript
+distinct<T, K>(keySelector?: (value: T) => K, flushes?: Observable<any>): MonoTypeOperatorFunction<T>
+```
+#### 매개변수
+* keySelector : 선택사항, 고유값으로 관찰할 항목을 지정
+* flushes : 선택사항, 고유값을 관리하는 HashSet을 플러쉬 하기위한 옵저버블 지정
+
+이전에 방출된 항목과 비교하여 중복으로 방출된 항목은 제외하고 방출합니다.
+
+Set을 사용할 수 있는 자바스크립트 버전이라면 Set을 사용하여 처리하며, Set을 사용할 수 없는 구버전이라면 Array 및 indexOf를 이용하여 최소한의 Set을 구현하여 동작합니다.
+각각은 아래와 같은 문제가 있습니다.
+Set을 사용할 수 없는 구형 브라우저는 비교할 값이 누적되면 성능이 저하될 수 있습니다.
+Set을 사용할 수 있는 최신 브라우저라도 오래 사용하면(Set에 값이 많이 누적되면) 메모리 누수가 발생할 수 있으며, 이를 보완하기 위해서는 2번째 매개변수인 flushes를 이용하여 Set값을 지워줄 필요가 있습니다.
+
+#### 예제 1 ([distinct_1.js](./distinct_1.js))
+다음은 중복된 숫자들을 방출하는 옵저버블에서 중복을 제거하여 값을 방출하는 예제입니다.
+```javascript
+import { of } from 'rxjs';
+import { distinct } from 'rxjs/operators';
+
+of(1, 1, 2, 2, 2, 1, 2, 3, 4, 3, 2, 1).pipe(
+    distinct(),
+).subscribe(x => console.log(x));
+/* Output
+1, 2, 3, 4
+ */
+```
+
+#### 예제 2 ([distinct_2.js](./distinct_2.js))
+다음은 방출되는 객체의 특정 값을 지정하여 중복값을 제거하여 방출하는 예제입니다.
+옵저버블에서 방출되는 객체의 name값을 비교하여 중복값을 제거합니다.
+```javascript
+import { of } from 'rxjs';
+import { distinct } from 'rxjs/operators';
+
+const ob1 = of(
+    {name: 'Foo', age: 4},
+    {name: 'Bar', age: 4},
+    {name: 'Foo', age: 3}
+);
+ob1.subscribe(v => console.log(v));
+/* Output
+{ name: 'Foo', age: 4 }
+{ name: 'Bar', age: 4 }
+{ name: 'Foo', age: 3 }
+ */
+ob1.pipe(distinct(data => data.name)).subscribe(v => console.log(v));
+/* Output
+{ name: 'Foo', age: 4 }
+{ name: 'Bar', age: 4 }
+ */
+```
+
+#### 예제 3 ([distinct_3.js](./distinct_3.js))
+다음은 flush할 시점을 지정하는 옵저버블을 사용하는 예제입니다.
+```javascript
+import { interval } from 'rxjs';
+import { distinct, take, map } from 'rxjs/operators';
+
+const ob1 = interval(500).pipe( // 0.5초마다 0 또는 1을 방출하는 옵저버블
+    take(20),
+    map(v => v % 2)
+);
+ob1.subscribe(v => console.log('test1', v));
+/* Output
+test1 0
+test2 1   x 10번
+ */
+
+ob1.pipe(distinct()).subscribe(v => console.log('test2', v));
+/* Output
+test2 0
+test2 1
+ */
+
+const flushTime = interval(2000);
+ob1.pipe(distinct(undefined, flushTime)).subscribe(v => console.log('test3', v));
+/* Output
+test3 0
+test3 1 => 2초 동안 중복값 무시 후 Set을 초기화
+test3 1
+test3 0 => 2초 동안 중복값 무시 후 Set을 초기화
+test3 1
+test3 0 => 2초 동안 중복값 무시 후 Set을 초기화
+test3 1
+test3 0 => 2초 동안 중복값 무시 후 Set을 초기화
+test3 1
+test3 0 => 2초 동안 중복값 무시 후 Set을 초기화
+test3 1
+ */
+```
+
+## **distinctUntilChanged**
+```javascript
+distinctUntilChanged<T, K>(compare?: (x: K, y: K) => boolean, keySelector?: (x: T) => K): MonoTypeOperatorFunction<T>
+```
+#### 매개변수
+* compare : 선택사항, 이전 항목x와 이번 항목y값을 비교하여 제거할 항목은 true를 반환
+* keySelector : 선택사항, 비교할 항목의 키를 지정
+
+이전에 확인한 distinct는 방출되는 전체 항목에 대해서 검사한다면 이번에 학습할 distinctUntilChanged는 이전 방출된 항목과 비교를 하여 중복을 판단합니다.
+
+#### 예제 1 ([distinctUntilChanged_1.js](./distinctUntilChanged_1.js))
+다음은 distinct_1 예제와 동일한 옵저버블에 연산자만 변경하여 어떻게 다른지 확인하는 예제입니다.
+```javascript
+import { of } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs/operators';
+
+of(1, 1, 2, 2, 2, 1, 2, 3, 4, 3, 2, 1).pipe(
+    distinctUntilChanged(),
+).subscribe(x => console.log(x));
+/* Output
+1
+2
+1
+2
+3
+4
+3
+2
+1
+ */
+```
+
+#### 예제 2 ([distinctUntilChanged_2.js](./distinctUntilChanged_2.js))
+다음 예제도 distint_2 예제와 유사한 옵저버블에 연산자만 변경하여 어떻게 다른지 확인하는 예제입니다.
+이전 항목과 비교하는 수행하는 첫번째 파라미터를 참고하시기 바랍니다.
+```javascript
+import { of } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs/operators';
+
+const ob1 = of(
+    {name: 'Foo', age: 4},
+    {name: 'Bar', age: 4},
+    {name: 'Foo', age: 3},
+    {name: 'Foo', age: 5}
+);
+ob1.subscribe(v => console.log(v));
+/* Output
+{ name: 'Foo', age: 4 }
+{ name: 'Bar', age: 4 }
+{ name: 'Foo', age: 3 }
+{ name: 'Foo', age: 5 }
+ */
+ob1.pipe(distinctUntilChanged( (prev, curr) => prev.name === curr.name)).subscribe(v => console.log(v));
+/* Output
+{ name: 'Foo', age: 4 }
+{ name: 'Bar', age: 4 }
+{ name: 'Foo', age: 3 }
+ */
+```
+
+#### 예제 3 ([distinctUntilChanged_3.js](./distinctUntilChanged_3.js))
+다음은 예제 2와 동일한 결과를 얻는 예제입니다.
+다만 2번째 파라미터인 비교할 객체의 키를 지정하여 값을 비교하는 방식입니다.
+```javascript
+import { of } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs/operators';
+
+const ob1 = of(
+    {name: 'Foo', age: 4},
+    {name: 'Bar', age: 4},
+    {name: 'Foo', age: 3},
+    {name: 'Foo', age: 5}
+);
+ob1.subscribe(v => console.log(v));
+/* Output
+{ name: 'Foo', age: 4 }
+{ name: 'Bar', age: 4 }
+{ name: 'Foo', age: 3 }
+{ name: 'Foo', age: 5 }
+ */
+ob1.pipe(distinctUntilChanged( (prev, curr) => prev === curr, data => data.name)).subscribe(v => console.log(v));
+/* Output
+{ name: 'Foo', age: 4 }
+{ name: 'Bar', age: 4 }
+{ name: 'Foo', age: 3 }
+ */
+```
+
+## **distinctUntilKeyChanged**
+```javascript
+distinctUntilKeyChanged<T>(key: string, compare?: (x: T, y: T) => boolean): MonoTypeOperatorFunction<T>
+```
+#### 매개변수
+* key : 이전에 방출된 항목과 비교할 키를 지정
+* compare : 선택사항, 해당 키를 비교하는 함수를 지정
+
+key로 지정된 항목을 비교하여 중복값이 제거된 옵저버블을 반환합니다.
+distinctUntilChanged와 다르게 비교할 key를 명시적으로 지정해야 합니다.
+선택적으로 단순 동등 비교가 아닌 지정된 조건에 따라 비교할 수 있는 compare 함수를 지정할 수 있습니다.
+
+#### 예제 1 ([distinctUntilKeyChanged_1.js](./distinctUntilKeyChanged_1.js))
+다음은 distinctUntilChanged의 예제 2와 동일한 결과를 출력하는 예제입니다.
+```javascript
+import { of } from 'rxjs';
+import { distinctUntilKeyChanged } from 'rxjs/operators';
+
+const ob1 = of(
+    {name: 'Foo', age: 4},
+    {name: 'Bar', age: 4},
+    {name: 'Foo', age: 3},
+    {name: 'Foo', age: 5}
+);
+ob1.subscribe(v => console.log(v));
+/* Output
+{ name: 'Foo', age: 4 }
+{ name: 'Bar', age: 4 }
+{ name: 'Foo', age: 3 }
+{ name: 'Foo', age: 5 }
+ */
+ob1.pipe(distinctUntilKeyChanged('name')).subscribe(v => console.log(v));
+/* Output
+{ name: 'Foo', age: 4 }
+{ name: 'Bar', age: 4 }
+{ name: 'Foo', age: 3 }
+ */
+```
+
+#### 예제 2 ([distinctUntilKeyChanged_2.js](./distinctUntilKeyChanged_2.js))
+다음은 비교 함수를 지정하여 key를 비교하는 예제입니다.
+```javascript
+import { of } from 'rxjs';
+import { distinctUntilKeyChanged } from 'rxjs/operators';
+
+const ob1 = of(
+    {name: 'Foo1', age: 4},
+    {name: 'Bar', age: 4},
+    {name: 'Foo2', age: 3},
+    {name: 'Foo3', age: 5}
+);
+ob1.pipe(distinctUntilKeyChanged('name')).subscribe(v => console.log(v));
+/* Output
+{ name: 'Foo1', age: 4 }
+{ name: 'Bar', age: 4 }
+{ name: 'Foo2', age: 3 }
+{ name: 'Foo3', age: 5 }
+ */
+ob1.pipe(distinctUntilKeyChanged('name', (prev, curr) => prev.substring(0, 3) === curr.substring(0, 3))).subscribe(v => console.log(v));
+/* Output
+{ name: 'Foo1', age: 4 }
+{ name: 'Bar', age: 4 }
+{ name: 'Foo2', age: 3 }
+ */
+```
