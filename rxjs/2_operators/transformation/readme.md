@@ -290,3 +290,40 @@ const result = source.pipe(
 result.subscribe(x => console.log(x));
 ```
 
+## **expand**
+```javascript
+expand<T, R>(project: (value: T, index: number) => ObservableInput<R>, concurrent: number = Number.POSITIVE_INFINITY, scheduler: SchedulerLike = undefined): OperatorFunction<T, R>
+```
+#### 매개변수
+* project : 방출된 항목 또는 project 함수를 통해 생서된 항목을 투영할 함수
+* concurrent : 선택사항, 동시에 구독하는 옵저버블의 최대 수, 기본값은 가능한 무한대(Number.POSITIVE_INFINITY)
+* scheduler : 선택사항, 비동기 처리방식 지정, 기본값은 undefined
+
+<code>expand</code> 연산자는 옵저버블에서 방출된 항목을 project 함수를 통해 반환된 항목을 추가로 방출할 수 있습니다.
+물론 project 함수를 통해 방출된 항목은 다시 project 함수를 재귀적으로 호출하여 새로운 값을 방출할 수 있습니다.
+
+유사한 연산자로는 <code>mergeMap</code>이 있으나 차이점을 확인할 필요가 있습니다.
+
+#### 예제 1 ([expand_1.js](./expand_1.js))
+다음은 1, 10을 방출하는 옵저버블이 expand 연산자를 통해 계속적으로 새로운 항목을 방출하는 예제입니다.
+```javascript
+import { of } from 'rxjs';
+import { delay, expand, take } from 'rxjs/operators';
+
+of(1, 10).pipe(
+    expand(x => of(2 * x).pipe(delay(1000))),
+    take(10)
+).subscribe(v => console.log(v));
+/* Output
+1
+10
+2
+20
+4
+40
+8
+80
+16
+160
+ */
+```

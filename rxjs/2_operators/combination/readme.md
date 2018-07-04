@@ -219,3 +219,124 @@ firstOrder.subscribe(x => console.log(x));
 3 // x 10
  */
 ```
+
+## **endWith**
+```javascript
+endWith<T>(...array: Array<T | SchedulerLike>): MonoTypeOperatorFunction<T>
+or
+endWith<T>(...array: Array<T>, scheduler?: SchedulerLike): MonoTypeOperatorFunction<T>
+```
+#### 매개변수
+* array : 옵저버블이 모두 방출된 후 지정된 값을 방출
+* scheduler : 선택사항, 기본값은 스케줄러를 사용하지 않습니다. 비동기 처리를 원하면 원하는 스케줄러를 추가하세요.
+
+옵저버블에서 방출된 항목을 모두 방출 후 array값을 추가적으로 방출합니다.
+
+#### 예제 1 ([endWith.js](./endWith.js))
+```javascript
+import { of } from 'rxjs';
+import { endWith } from 'rxjs/operators';
+
+of('하나', '둘', '셋').pipe(endWith('넷')).subscribe(n => console.log(n));
+/* Output
+하나
+둘
+셋
+넷
+ */
+```
+
+## **exhaust**
+```javascript
+exhaust<T>(): OperatorFunction<any, T>
+```
+
+상위 옵저버블 내부에서 또다른 내부 옵저버블이 방출될 경우 내부 옵저버블에서 방출되는 항목을 병합하여 상위 옵저버블에 방출합니다.
+이것은 <code>mergeAll</code>과 유사합니다. 차이점은 아래와 같습니다.
+
+<code>mergeAll</code>은 내부의 모든 옵저버블을 병합하여 방출하는데 반해 <code>exhaust</code>는 내부 옵저버블 중 아직 종료되지 않고 실행 중이라면 이 후 내부 옵저버블에서 방출되는 항목을 무시합니다.
+말로는 이해가 잘 안될 수 있습니다. 바로 아래의 예제를 확인해보겠습니다.
+또한 <code>mergeAll</code> 예제도 같이 비교하여 보시면 도움이 될 것 같습니다.
+
+#### 예제 1 ([exhaust.js](./exhaust.js))
+다음은 A와 B를 두개 방출하는 옵저버블을 map 연산자를 통해 1초마다 5번 방출하는 내부 옵저버블을 방출하도록 처리한 ob1이 있습니다.
+이것을 <code>exhaust</code> 연산자를 이용하여 상위 옵저버블로 병합하는 예제입니다.
+결과와 같이 내부에서 동시에 방출되는 옵저버블 중 첫 번째 옵저버블이 실행되고 두 번째 옵저버블은 무시되는 것을 확인할 수 있습니다.
+```javascript
+import { of, interval } from 'rxjs';
+import { map, exhaust, take } from 'rxjs/operators';
+
+const ob1 = of('A', 'B').pipe(
+    map(v => interval(1000).pipe(
+        take(5),
+        map(vv => `${v}${vv}`)
+        )
+    )
+);
+
+ob1.pipe(exhaust()).subscribe(v => console.log('exhaust', v));
+/* Output
+exhaust A0
+exhaust A1
+exhaust A2
+exhaust A3
+exhaust A4
+ */
+```
+
+## **exhaustMap**
+```javascript
+exhaustMap<T, I, R>(project: (value: T, index: number) => ObservableInput<I>, resultSelector?: (outerValue: T, innerValue: I, outerIndex: number, innerIndex: number) => R): OperatorFunction<T, I | R>
+```
+
+#### 매개변수
+* project : 방출된 값을 매핑하는 함수
+* resultSelector : 선택사항,
+
+위에서 살펴 본 <code>exhaust</code>예제 처럼 <code>map</code>과 <code>exhaust</code>를 결합한 연산자라고 생각하시면 됩니다.
+
+#### 예제 1 ([exhaustMap_1.js](./exhaustMap_1.js))
+다음은 <code>exhaust</code> 예제에서 사용한 것을 <code>exhaustMap</code>으로 변경한 예제입니다.
+```javascript
+import { of, interval } from 'rxjs';
+import { map, exhaustMap, take } from 'rxjs/operators';
+
+const ob1 = of('A', 'B').pipe(
+    exhaustMap(v => interval(1000).pipe(
+        take(5),
+        map(vv => `${v}${vv}`)
+        )
+    )
+);
+
+ob1.subscribe(v => console.log('exhaustMap', v));
+/* Output
+exhaust A0
+exhaust A1
+exhaust A2
+exhaust A3
+exhaust A4
+ */
+```
+
+#### 예제 2 ([exhaustMap_2.js](./exhaustMap_2.js))
+다음은 <code>exhaustMap</code>의 두 번째 파라미터를 이용해서 예제 1의 하나남은 map 연산자도 제거하는 예제입니다.
+```javascript
+import { of, interval } from 'rxjs';
+import { exhaustMap, take } from 'rxjs/operators';
+
+const ob1 = of('A', 'B').pipe(
+    exhaustMap(v => interval(1000).pipe(take(5)),
+        (ov, iv, oi, ii) => `${ov}${iv}`
+    )
+);
+
+ob1.subscribe(v => console.log('exhaustMap', v));
+/* Output
+exhaust A0
+exhaust A1
+exhaust A2
+exhaust A3
+exhaust A4
+ */
+```

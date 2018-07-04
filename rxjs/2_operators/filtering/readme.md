@@ -395,3 +395,35 @@ ob1.pipe(distinctUntilKeyChanged('name', (prev, curr) => prev.substring(0, 3) ==
 { name: 'Foo2', age: 3 }
  */
 ```
+
+## **elementAt**
+```javascript
+elementAt<T>(index: number, defaultValue?: T): MonoTypeOperatorFunction<T>
+```
+#### 매개변수
+* index : 방출할 항목의 인덱스 번호
+* defaultValue : 선택사항, index에 해당하는 항목이 없을 경우 방출할 기본 값
+
+옵저버블의 방출된 항목 중 지정된 인덱스(index)에 해당하는 항목만 방출합니다.
+기본값(defaultValue)를 지정하지 않으면 해당 인덱스에 항목이 없을 경우 에러(ArgumentOutOfRangeError)를 방출합니다.
+기본값(defaultValue)를 지정하면 에러를 방출하지 않고 기본값으로 지정된 값을 방출합니다.
+
+#### 예제 1 ([elementAt.js](./elementAt.js))
+다음은 위에서 설명한 상황에 대하여 동작을 확인하는 예제입니다.
+```javascript
+import { of } from 'rxjs';
+import { elementAt } from 'rxjs/operators';
+
+of(1, 2, 3).pipe(elementAt(2)).subscribe(n => console.log(n));
+/* Output
+3
+ */
+of(1, 2, 3).pipe(elementAt(3)).subscribe(n => console.log(n), err => console.log('에러'));
+/* Output
+에러
+ */
+of(1, 2, 3).pipe(elementAt(3, 0)).subscribe(n => console.log(n));
+/* Output
+0
+ */
+```
